@@ -1,7 +1,11 @@
-const ToxicWords = [
+const toxicWords = [
     'what',
+    'putu'
 ];
-const WORD_LIMIT = 3; 
-const MUTE_DURATION = 5 * 60 * 1000;
 
-module.exports = {ToxicWords, WORD_LIMIT, MUTE_DURATION}
+function checkToxicWords (message) {
+    const content = message.toLowerCase();
+    const words = content.split(' ');
+    return words.some(word => toxicWords.includes(word));
+}
+module.exports = {checkToxicWords}

@@ -19,7 +19,7 @@ const client = new Client({
 
 const quotes = require('../data/quotes.js');
 const fs = require('fs');
-const axios = require('axios');
+const toxicWords = require('../data/toxicWords.js');
 const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 const tenorKey = process.env.TENOR_KEY
 const geminiPro = genAI.getGenerativeModel({ model: "gemini-pro" });
@@ -31,6 +31,14 @@ client.on('ready', (c) => {
 })
 
 client.on('messageCreate', async (message) => {
+
+  if (toxicWords.checkToxicWords(message.content)) {
+
+    await message.delete();
+    await message.channel.send(`${message.author} dilarang toxic`)
+    console.log(`${message.author.username} has said ${message.content}`)
+   
+   };
 
   if (message.mentions.has(client.user)) {
     
@@ -50,14 +58,15 @@ client.on('messageCreate', async (message) => {
 
       message.reply('waalaikumsalam')
       
-    }
-    else {
+    }else {
 
       message.reply('Mana anjing anjing yang ngetag aku tadi?')
     }
   }
 
 });
+
+
 
 
 client.on('interactionCreate', async interaction => {
