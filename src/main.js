@@ -34,9 +34,25 @@ client.on('messageCreate', async (message) => {
 
   if (toxicWords.checkToxicWords(message.content)) {
 
+    if (message.author.bot) return;
+
     await message.delete();
-    await message.channel.send(`${message.author} dilarang toxic`)
-    console.log(`${message.author.username} has said ${message.content}`)
+    const warning = await message.channel.send(`${message.author} dilarang toxic`)
+    
+    const embed = new EmbedBuilder()
+    .setColor('#df2c14')
+    .setTitle(`${message.author.username} Was toxic`)
+    .setDescription(`they said ${message.content} at ${message.channel.name}`)
+
+    client.channels.cache.get('1310896908918718467').send({
+      embeds : [embed]
+    })
+    
+    setTimeout(()=>{
+      warning.delete().
+      catch (console.error)
+    }, 5000)
+    console.log(`${message.author.username} has said ${message.content}`);
    
    };
 
