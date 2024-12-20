@@ -1,5 +1,5 @@
 require('dotenv').config();
-const { REST, Routes, Options, ApplicationCommandOptionType, ApplicationCommand } = require('discord.js');
+const { REST, Routes, Options, ApplicationCommandOptionType, ApplicationCommand, PermissionFlagsBits } = require('discord.js');
 
 const commands = [
   {
@@ -58,6 +58,38 @@ const commands = [
         ]
       }
 
+    ]
+  },
+  {
+    name: 'mute',
+    description : "mute the inapproiacte member",
+    options:[
+      {name: 'member',
+        description: 'mute member you want to',
+        type: ApplicationCommandOptionType.Mentionable,
+        required: true
+      },
+      {name: 'reason',
+        description: 'the reason why you wanna mute them',
+        type: ApplicationCommandOptionType.String,
+        required: true
+      }
+    ]
+  },
+  {
+    name: 'ban',
+    description : "ban the inapproiacte member",
+    options:[
+      {name: 'member',
+        description: 'ban member you want to',
+        type: ApplicationCommandOptionType.Mentionable,
+        required: true
+      },
+      {name: 'reason',
+        description: 'the reason why you wanna ban them',
+        type: ApplicationCommandOptionType.String,
+        required: true
+      }
     ]
   }
 ];
