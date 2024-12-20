@@ -53,6 +53,8 @@ client.on('messageCreate', async (message) => {
       catch (console.error)
     }, 5000)
     console.log(`${message.author.username} has said ${message.content}`);
+
+    await message.author.send('bang, minimal tangannya disekolahin');
    
    };
 
@@ -181,7 +183,7 @@ client.on('interactionCreate', async interaction => {
       embeds : [embed],
       files: [imagePath]
     });
-}
+  }
 });
 
 client.login(process.env.TOKEN);
