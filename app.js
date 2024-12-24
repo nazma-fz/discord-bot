@@ -1,5 +1,5 @@
 
-/*require('dotenv').config();
+require('dotenv').config();
 const {Client, IntentsBitField, EmbedBuilder, PermissionsBitField, AttachmentBuilder, Attachment} = require('discord.js');
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
@@ -17,9 +17,9 @@ const client = new Client({
 
 
 
-const quotes = require('../data/quotes.js');
+const quotes = require('./data/quotes.js');
 const fs = require('fs');
-const toxicWords = require('../data/toxicWords.js');
+const toxicWords = require('./data/toxicWords.js');
 const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 const tenorKey = process.env.TENOR_KEY
 const geminiPro = genAI.getGenerativeModel({ model: "gemini-pro" });
@@ -186,4 +186,4 @@ client.on('interactionCreate', async interaction => {
   }
 });
 
-client.login(process.env.TOKEN);*/
+client.login(process.env.TOKEN);
