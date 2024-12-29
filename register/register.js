@@ -1,5 +1,5 @@
 require('dotenv').config();
-const { REST, Routes, Options, ApplicationCommandOptionType, ApplicationCommand, PermissionFlagsBits } = require('discord.js');
+const { REST, Routes, Options, ApplicationCommandOptionType, ApplicationCommand, PermissionFlagsBits, SlashCommandBuilder } = require('discord.js');
 
 const commands = [
   {
