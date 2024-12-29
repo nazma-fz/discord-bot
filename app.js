@@ -1,8 +1,7 @@
 
 require('dotenv').config();
-const {Client, IntentsBitField, EmbedBuilder, PermissionsBitField, AttachmentBuilder, Attachment} = require('discord.js');
-const { GoogleGenerativeAI } = require("@google/generative-ai");
-
+const {Client, IntentsBitField, EmbedBuilder, PermissionsBitField, GuildMember, Events} = require('discord.js');
+const { GoogleGenerativeAI,HarmBlockThreshold,HarmCategory } = require("@google/generative-ai");
 
 
 
@@ -15,15 +14,33 @@ const client = new Client({
     ],
 });
 
+const safetySetting = [
+  {
+    category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+    threshold: HarmBlockThreshold.BLOCK_NONE
+  },
+  {
+    category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+    threshold: HarmBlockThreshold.BLOCK_NONE
+  },
+  {
+    category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+    threshold: HarmBlockThreshold.BLOCK_NONE
+  },
+  {
+    category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+    threshold: HarmBlockThreshold.BLOCK_NONE
+  }
+]
+
 
 
 const quotes = require('./data/quotes.js');
 const fs = require('fs');
 const toxicWords = require('./data/toxicWords.js');
 const genAI = new GoogleGenerativeAI(process.env.API_KEY);
-const tenorKey = process.env.TENOR_KEY
-const geminiPro = genAI.getGenerativeModel({ model: "gemini-pro" });
-const geminiFlash = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+const geminiPro = genAI.getGenerativeModel({ model: "gemini-pro", safetySettings: safetySetting });
+const geminiFlash = genAI.getGenerativeModel({ model: "gemini-1.5-flash", safetySettings: safetySetting });
 const path = require('path');
 
 client.on('ready', (c) => {
@@ -207,6 +224,19 @@ client.on('interactionCreate', async interaction => {
     .setDescription(`${getUSer} have been muted because ${getReason}`)
 
     interaction.reply(
+      {embeds : [embed]}
+    )
+  }
+
+  if (interaction.commandName === 'kick') {
+    const getUSer = interaction.options.getMentionable('member')
+    const getReason = interaction.options.getString('reason')
+    const embed = new EmbedBuilder()
+    .setColor('#0099ff')
+    .setTitle('KICKED')
+    .setDescription(`${getUSer} have been kicked because ${getReason}`)
+
+     interaction.reply(
       {embeds : [embed]}
     )
   }
