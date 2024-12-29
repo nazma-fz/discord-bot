@@ -184,6 +184,32 @@ client.on('interactionCreate', async interaction => {
       files: [imagePath]
     });
   }
+
+  if (interaction.commandName ==='mute') {
+    const getUSer = interaction.options.getMentionable('member')
+    const getReason = interaction.options.getString('reason')
+    const embed = new EmbedBuilder()
+    .setColor('#0099ff')
+    .setTitle('MUTED')
+    .setDescription(`${getUSer} have been muted because ${getReason}`)
+
+    interaction.reply(
+      {embeds : [embed]}
+    )
+  }
+
+  if (interaction.commandName === 'ban') {
+    const getUSer = interaction.options.getMentionable('member')
+    const getReason = interaction.options.getString('reason')
+    const embed = new EmbedBuilder()
+    .setColor('#0099ff')
+    .setTitle('BANNED')
+    .setDescription(`${getUSer} have been muted because ${getReason}`)
+
+    interaction.reply(
+      {embeds : [embed]}
+    )
+  }
 });
 
 client.login(process.env.TOKEN);

@@ -3,7 +3,8 @@ const toxicWords = [
     'what', 'What', 'WHAT',
     'putu', 'Putu', 'PUTU',
     'tolol', 'Tolol', 'TOLOL',
-    'goblok', 'Goblok', 'GOBLOK'
+    'goblok', 'Goblok', 'GOBLOK',
+    'anjing','Anjing','ANJING'
 ];
 
 function checkToxicWords (message) {
